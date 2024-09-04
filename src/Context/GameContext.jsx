@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 import PropTypes from "prop-types";
 import { useLocalStorage } from "react-use";
 
@@ -19,6 +19,8 @@ export const GameProvider = ({ children }) => {
   );
   const [started, setStarted] = useLocalStorage("started", false);
   const [board, setBoard] = useLocalStorage("board", Array(9).fill(null));
+  const [over, setOver] = useState(false);
+  const [winner, setWinner] = useState("");
 
   const updateScores = (result) => {
     if (result === "X") {
@@ -46,6 +48,10 @@ export const GameProvider = ({ children }) => {
         setStarted,
         board,
         setBoard,
+        over,
+        setOver,
+        winner,
+        setWinner,
       }}
     >
       {children}

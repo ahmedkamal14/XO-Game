@@ -2,11 +2,23 @@ import { GameContext } from "../Context/GameContext";
 import { useContext } from "react";
 
 const Board = () => {
-  const { board, setBoard, turn, setTurn, updateScores, started, setStarted } =
-    useContext(GameContext);
+  const {
+    board,
+    setBoard,
+    turn,
+    setTurn,
+    updateScores,
+    started,
+    setStarted,
+    setOver,
+    setWinner,
+    over,
+  } = useContext(GameContext);
 
   const handleClick = (index) => {
     if (!started) return;
+
+    if (over) return;
 
     if (board[index] || checkWinner(board)) return;
 
@@ -19,11 +31,21 @@ const Board = () => {
     if (winner) {
       updateScores(winner);
       setBoard(Array(9).fill(null));
-      setStarted(false);
+      setOver(true);
+      setWinner(winner);
+      setTimeout(() => {
+        setOver(false);
+        setStarted(false);
+      }, 5000);
     } else if (!newBoard.includes(null)) {
       updateScores("Draw");
       setBoard(Array(9).fill(null));
-      setStarted(false);
+      setOver(true);
+      setWinner("Draw");
+      setTimeout(() => {
+        setOver(false);
+        setStarted(false);
+      }, 5000);
     } else {
       setTurn(turn === "X" ? "O" : "X");
     }
@@ -52,7 +74,7 @@ const Board = () => {
                   {value}
                 </h1>
                 {/* Hover effect */}
-                {!value && started && (
+                {!value && started && !over && (
                   <h1
                     className={`flex justify-center items-center w-full h-full text-[60px] font-bold absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-all duration-100 ${
                       turn === "X" ? "text-player1" : "text-player2"

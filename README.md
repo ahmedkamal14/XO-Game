@@ -2,7 +2,8 @@
 
 This repository contains a **Tic-Tac-Toe** (XO) game built with modern web technologies. The game offers an engaging and interactive experience, allowing two players to compete against each other. It features a sleek, responsive design and incorporates various React hooks and state management techniques to ensure a smooth and enjoyable gaming experience.
 
-![XO Game Preview](snip.png)
+![XO Game Preview](snip1.png)
+![XO Game Preview](snip2.png)
 
 ## Features
 
